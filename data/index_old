@@ -1,0 +1,127 @@
+      <div class="page-container">
+         <h1 class="page-title">
+            Focus Bracketing
+         </h1>
+         <div class="external-grid">
+            <div>
+               <div class="panel-header" style= "background-color:rgb(241, 240, 178);">Point A</div>
+               <div class="panel-grid">
+                  <div class="grid-item">
+                     <!--<div class="grid-item-title">Step 100</div>-->
+                     <div class="buttons">
+                        <input id="Cmd01" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd01" class="buttons-label1"> <i class="icon-triple-arrow-left-1"></i></label>
+                     </div>
+                   </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Step 10</div>-->
+                     <div class="buttons">
+                        <input id="Cmd02" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd02" class="buttons-label1"> <i class="icon-double-arrow-left-1"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Step 1</div>-->
+                     <div class="buttons">
+                        <input id="Cmd03" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd03" class="buttons-label1"> <i class="icon-arrow-left-1"></i></label>
+                     </div>
+                   </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Set</div>-->
+                     <div class="buttons">
+                        <input id="Cmd07" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd07" class="buttons-label"> <i class="icon-cog"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Home</div>-->
+                     <div class="buttons">
+                        <input id="Cmd08" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd08" class="buttons-label"> <i class="icon-home3"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Go/Stop</div>-->
+                     <div class="buttons">
+                        <input id="Cmd09" class="buttons-input" type="checkbox"  onclick="myFunction(this)">
+                        <label for="Cmd09" class="buttons-label" id="Label09"> <i class="icon-switch"></i></label>
+                     </div>
+                  </div>
+               </div>
+               <div class="panel-footer" style= "background-color:rgb(241, 240, 178);">
+                  <div class="text">Home point value A =</div>
+                  <div class="value"><span id="A_position">%A_position%</span></div>
+               </div>
+            </div>
+            <div>
+               <div class="panel-header" style= "background-color:rgb(166, 238, 144);">Point B</div>
+               <div class="panel-grid">
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Step 1</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd04" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd04" class="buttons-label1"> <i class="icon-arrow-right-1"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Step 10</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd05" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd05" class="buttons-label1"> <i class="icon-double-arrow-right-1"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Step 100</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd06" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd06" class="buttons-label1"> <i class="icon-triple-arrow-right-1"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Go/Stop</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd10" class="buttons-input" type="checkbox" onclick="myFunction(this)">
+                        <label for="Cmd10" class="buttons-label" id="Label10"> <i class="icon-switch"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Home</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd11" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd11" class="buttons-label"> <i class="icon-home3"></i></label>
+                     </div>
+                  </div>
+                  <div class="grid-item">
+                     <!--<div <div class="grid-item-title">Set</div>-->
+                     <div class="buttons case">
+                        <input id="Cmd12" class="buttons-input" type="button" onclick="myFunction(this)">
+                        <label for="Cmd12" class="buttons-label"> <i class="icon-cog"></i></label>
+                     </div>
+                  </div>
+               </div>
+               <div class="panel-footer" style= "background-color:rgb(166, 238, 144);">
+                  <div class="text">Home point value B =</div>
+                  <div class="value"><span id="B_position">%B_position%</span></div>
+               </div>
+            </div>
+            <div class="panel-1-grid">
+               <label for="shots-set"><b>Shots set </b>[n] =</label>
+               <input type="text" id="shots-set" name="shots-set">
+               <div class="text"><b>Actual position </b>[steps] =</div>
+               <div class="value"> <span id="actualPosition">%actualPosition%</span></div>
+            </div>
+            <div class="panel-1-grid">
+               <label for="interval"><b>Interval </b>[sec] =</label>
+               <input type="text" id="interval" name="interval">
+               <div class="text"><b>Shots made </b>[n] =</div>
+               <div class="value">3</div>
+            </div>
+            <div class="panel-1-grid">
+               <label for="speed"><b>Speed </b>[Hz] =</label>
+               <input type="text" id="speed" name="speed">
+            </div>
+         </div>
+      </div>
+
+

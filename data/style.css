@@ -1,0 +1,278 @@
+body {
+  /*background:#e4e5f5 none repeat scroll 0 0;*/
+  background-image: URL("bg_01.jpg");
+  /*background-repeat:repeat-x;*/
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 400px) {
+  .container-flex {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+.page-title {
+  font-size: 3.5vw;
+  color: rgb(70, 101, 201);
+  text-align: center;
+  text-shadow: 1px 2px 6px #a5a4a4;
+}
+.page-container {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5vw;
+}
+
+.container-flex {
+  display: flex;
+  flex: 50%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.external-grid {
+  display: grid;
+  /*grid-template-columns: 48% 48%;*/
+  grid-template-columns: 100%;
+  padding-right: 10vw;
+  padding-left: 10vw;
+  grid-gap: 2%;
+}
+
+.panel-header {
+  font-size: 3vw;
+  font-weight: bold;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0.5vw;
+  border-style: solid;
+  border: 1px solid rgb(117, 140, 245);
+  border-radius: 1vw 1vw 0vw 0vw;
+  text-shadow: 1px 2px 6px #a5a4a4;
+}
+
+.panel-footer {
+  justify-content: center;
+  align-items: center;
+  min-height: 2.5vw;
+  text-align: center;
+  margin-top: auto;
+  padding: 1vw;
+  display: flex;
+  border-style: solid;
+  border: 1px solid rgb(117, 140, 245);
+  border-radius: 0vw 0vw 1vw 1vw;
+}
+.panel-footer .text {
+  font-size: 2vw;
+  font-weight: bold;
+  padding-left: 10vw;
+  flex: 50%;
+}
+.panel-footer .value {
+  text-align: left;
+  font-size: 2vw;
+  font-weight: bold;
+  flex: 30%;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  grid-template-rows: 17vw 17vw;
+  border-left: 1px solid rgb(117, 140, 245);
+  border-right: 1px solid rgb(117, 140, 245);
+  grid-gap: 2%;
+}
+.panel-2-grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 32% 32% 32%;
+  grid-template-rows: 17vw;
+  border-left: 1px solid rgb(117, 140, 245);
+  border-right: 1px solid rgb(117, 140, 245);
+}
+
+.grid-item {
+  /*background-color: red;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-item-title {
+  /*background-color: rgb(255, 255, 255);*/
+  width: 100%;
+  font-size: 1.6vw;
+  text-align: center;
+  margin-top: 1vw;
+  margin-bottom: 1.5vw;
+}
+
+.panel-1-grid {
+  display: grid;
+  grid-template-columns: 26% 13% 43% 11%;
+  grid-template-rows: 4vw;
+  grid-gap: 3%;
+  text-align: right;
+  vertical-align: middle;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  border-left: 1px solid rgb(117, 140, 245);
+  border-right: 1px solid rgb(117, 140, 245);
+}
+.grid-1-item {
+  /*background-color: red;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5vw;
+  padding: 0.5vw;
+}
+.panel-1-grid .text {
+  font-size: 2.5vw;
+  padding-left: 5vw;
+}
+.panel-1-grid .value {
+  text-align: left;
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+.panel-1-grid label {
+  text-align: right;
+  font-size: 2.5vw;
+  padding-left: 2vw;
+  vertical-align: baseline;
+}
+.panel-1-grid input {
+  text-align: input;
+  font-size: 2.5vw;
+}
+/*** Button Design ********************************************************/
+.buttons {
+  width: 11vw;
+  height: 11vw;
+  position: relative;
+  display: inline-block;
+}
+.buttons input {
+  /*opacity: 1;*/
+  /*width: 50px;  height: 50px;*/ /* dimensioni dell'oggetto di input*/
+  display: none;
+  z-index: 100;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 20px;
+  background: transparent;
+}
+/*crea il pulsante*/
+.buttons-label1 {
+  color: #c50545;
+}
+.buttons-label {
+  color: #3805c5;
+}
+.buttons-label1,
+.buttons-label {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1vw;
+  display: block;
+  border-radius: 100%;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  background-color: #eaeaea;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#f6f6f6),
+    to(#eaeaea)
+  );
+  background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+  background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea);
+  background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea);
+  background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+  background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+  -moz-border-radius: 20vw;
+  -webkit-border-radius: 20vw;
+  border-radius: 20vw;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1vw 1vw rgba(0, 0, 0, 0.25),
+    0 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1vw 1vw rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.buttons-label1::before,
+.buttons-label::before,
+.buttons-label::after,
+.buttons-label::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+}
+/* crea il bordo circolare dell'ombra*/
+.buttons-label1:before,
+.buttons-label:before {
+  z-index: -1;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  background-color: #eaeaea;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  opacity: 70%;
+}
+.buttons-input:checked ~ .buttons-label1,
+.buttons-input:checked ~ .buttons-label {
+  color: #5dc53d;
+}
+
+/*cambia colore al simbolo (carattere) e crea il movimento quando si clicca*/
+.buttons-label1:active,
+.buttons-label:active {
+  top: 5px;
+  color: #b03060;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#f6f6f6)
+  );
+  background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+  background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6);
+  background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6);
+  background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+  background-image: linear-gradient(top, #eaeaea, #f6f6f6);
+}
+
+/*corregge la forma del bordo di background quando clicco*/
+.buttons-label1:active::before,
+.buttons-label:active::before {
+  top: -9px;
+}
+
+/*visualizza il bordo di background*/
+.buttons-label1:hover::before,
+.buttons-label:hover::before {
+  background-color: #97aff1;
+  opacity: 30%;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1vw 1vw rgba(0, 0, 0, 0.25),
+    0 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1vw 1vw rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.1);
+}
