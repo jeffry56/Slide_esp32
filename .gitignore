@@ -3,3 +3,4 @@ node_modules
 dist
 credentials.h
 .DS_Store
+.gitignore
