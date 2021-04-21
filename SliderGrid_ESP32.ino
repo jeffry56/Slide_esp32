@@ -7,6 +7,7 @@
 #include "SPIFFS.h"
 #include "index.h"
 #include "credentials.h"
+#include <Preferences.h>
 
 #define porta           80
 #define socketPort      81
@@ -19,13 +20,6 @@ const char* ssid1       = WIFI_SSID1;
 const char* password1   = WIFI_PASSWD1;
 const char* APssid      = AP_SSID;
 const char* APpassword  = AP_PASSWD;
-
-/*const char* ssid      = "Telecom-24350745";
-  const char* password  = "1Q1nTZOQ0BWpcOk7yIPyvohy";
-  const char* ssid1     = "AndroidAP";
-  const char* password1 = "a28b3288fdc6";
-  const char* APssid    = "MalignaniAP";
-  const char* APpassword = "malignani";*/
 
 IPAddress ip(192, 168, 1, 51);
 IPAddress gateway(192, 168, 1, 1);
