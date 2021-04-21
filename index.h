@@ -16,7 +16,7 @@ const char webpage[] = R"=====(
          <div class="external-grid">
             <div>
                <div class="panel-header" style= "background-color:rgb(241, 240, 178);">Controls position</div>
-               <div class="panel-grid">
+               <div class="panel-grid" id="panel-1">
                   <div class="grid-item">
                      <!--<div class="grid-item-title">Step 100</div>-->
                      <div class="buttons">
@@ -64,14 +64,14 @@ const char webpage[] = R"=====(
                </div>
             </div>
                <!--********************************************************************************************************************-->
-            <div>
+            <div id="panel-2">
                <div class="panel-header" style= "background-color:rgb(178, 241, 178);">Point A</div>
                <div class="panel-2-grid">
                   <div class="grid-item">
                      <!--<div <div class="grid-item-title">Set</div>-->
                      <div class="buttons">
                         <input id="Cmd07" class="buttons-input" type="button" onclick="decodKey(this)">
-                        <label for="Cmd07" class="buttons-label"> <i class="icon-cog"></i></label>
+                        <label for="Cmd07" class="buttons-label" id="Jog07"> <i class="icon-cog"></i></label>
                      </div>
                   </div>
                   <div class="grid-item">
@@ -95,14 +95,14 @@ const char webpage[] = R"=====(
                </div>
             </div>
 <!--***********************************************************************************************************************************-->
-            <div>
+            <div id="panel-3">
                <div class="panel-header" style= "background-color:rgb(253, 171, 171);">Point B</div>
                <div class="panel-2-grid">
                   <div class="grid-item">
                      <!--<div <div class="grid-item-title">Set</div>-->
                      <div class="buttons case">
                         <input id="Cmd10" class="buttons-input" type="button" onclick="decodKey(this)">
-                        <label for="Cmd10" class="buttons-label"> <i class="icon-cog"></i></label>
+                        <label for="Cmd10" class="buttons-label" id="Jog10"> <i class="icon-cog"></i></label>
                      </div>
                   </div>
                   <div class="grid-item">
@@ -126,7 +126,7 @@ const char webpage[] = R"=====(
                </div>
             </div>
 <!--**********************************************************************************************************************************-->
-         <div>
+         <div id="panel-4">
             <div class="panel-header" style= "background-color:rgb(182, 248, 250);">Input values</div>
             <div class="panel-1-grid">
                <label for="Cmd13"><b>Shots set </b>[n] =</label>
@@ -140,8 +140,7 @@ const char webpage[] = R"=====(
                <div class="text"><b>Shots made </b>[n] =</div>
                <div class="value"> <span id="ShotsMade">%ShotsMade%</span></div>
             </div>
-         <div class="panel-footer" style= "background-color:rgb(182, 248, 250);">
-         </div>
+            <div class="panel-footer" style= "background-color:rgb(182, 248, 250);"></div>
           </div>
      </div>
       <script>
@@ -190,20 +189,32 @@ const char webpage[] = R"=====(
             var isChecked1 = document.getElementById("Cmd09").checked;
             var isChecked2 = document.getElementById("Cmd12").checked;
             if (isChecked1) {
-                document.getElementById("Cmd12").disabled = true; 
-               document.getElementById("Label12").style.opacity = "0.3";
-            } else {
-               document.getElementById("Cmd12").disabled = false;
-               document.getElementById("Label12").style.opacity = "1" ;
-               }
+                document.getElementById("panel-1").style.pointerEvents = "none";
+                document.getElementById("panel-3").style.pointerEvents = "none";
+                document.getElementById("panel-4").style.pointerEvents = "none";
+               } 
             if (isChecked2) {
-               document.getElementById("Cmd09").disabled = true; 
-               document.getElementById("Label09").style.opacity = "0.3";
-            } else {
-               document.getElementById("Cmd09").disabled = false;
-               document.getElementById("Label09").style.opacity = "1" ;
+                document.getElementById("panel-1").style.pointerEvents = "none";
+                document.getElementById("panel-2").style.pointerEvents = "none";
+                document.getElementById("panel-4").style.pointerEvents = "none";
+               } 
+            if (isChecked1 || isChecked2) {
+                document.getElementById("Jog07").style.pointerEvents = "none";
+                document.getElementById("Jog08").style.pointerEvents = "none";
+                document.getElementById("Jog10").style.pointerEvents = "none";
+                document.getElementById("Jog11").style.pointerEvents = "none";
+               } 
+            if (!isChecked1 && !isChecked2) {
+                document.getElementById("Jog07").style.pointerEvents = "auto";
+                document.getElementById("Jog08").style.pointerEvents = "auto";
+                document.getElementById("Jog10").style.pointerEvents = "auto";
+                document.getElementById("Jog11").style.pointerEvents = "auto";
+                document.getElementById("panel-1").style.pointerEvents = "auto";
+                document.getElementById("panel-2").style.pointerEvents = "auto";
+                document.getElementById("panel-3").style.pointerEvents = "auto";
+                document.getElementById("panel-4").style.pointerEvents = "auto";
                }
-        }
+          }
 
           function sendValue(ctrl) {
             var shots = document.getElementById("Cmd13");
@@ -234,8 +245,8 @@ const char webpage[] = R"=====(
           }
           
           function onMessage(event) {
-            console.log(`Received a notification from ${event.origin}`);
-            console.log(event);
+            /*console.log(`Received a notification from ${event.origin}`);
+            console.log(event);*/
             var str = event.data.split('|');
             if (str[0]==="dati") {
               document.getElementById("A_position").innerHTML = str[1];
