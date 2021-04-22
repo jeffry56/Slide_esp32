@@ -5,9 +5,11 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
+#include <ArduinoJson.h>
 #include "index.h"
 #include "credentials.h"
-#include <Preferences.h>
+//#include <Preferences.h>
+//#include <WebSerial.h>
 
 #define porta           80
 #define socketPort      81
@@ -35,19 +37,26 @@ const int   maxattemp     = 30;                     // assegnare maxattemp >=15 
 bool ledState = 0;
 const int ledPin = 2;
 
-int actualPosition  = 0;
-int maxPosition     = 1000;
-int minPosition     = 0;
-int A_position      = 0;
-int B_position      = 0;
-int Interval        = 0;
-int Shots           = 0;
-int ShotsMade       = 0;
-bool Achk, Bchk = false;
+float actualPosition  = 0;
+int maxPosition       = 100;
+int minPosition       = 0;
+float A_position      = 0;
+float B_position      = 0;
+int Interval          = 0;
+int Shots             = 0;
+int ShotsMade         = 0;
+bool Achk, Bchk, flag08, flag11 = false;
+
+unsigned long previousMillis = 0;
+const long interval = 1000;
+unsigned long currentMillis = 0;
 
 WiFiMulti wifiMulti;
 AsyncWebServer server(porta);
 AsyncWebSocket ws("/ws");
+
+StaticJsonDocument<500> jmsg;
+char buffer[500];
 
 void setup() {
   Serial.begin(115200);
@@ -66,7 +75,17 @@ void setup() {
 
 void loop() {
   ws.cleanupClients();
-  digitalWrite(ledPin, ledState);
+
+  currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    if (flag08) {
+      send_values(1);
+    }
+    if (flag11) {
+      send_values(-1);
+    }
+  }
 }
 
 /*** Functions Definitions ****************************************************************/
@@ -101,6 +120,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     data[len] = 0;
     String command = (char*)data;
     Serial.println(command);
+
     if (command.substring(0, 4) == "V13-") {
       Shots = (command.substring(4)).toInt();
       send_values(0);
@@ -110,26 +130,27 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         send_values(0);
       } else {
         int nCommand = (command.substring(3)).toInt();
-        Serial.println(nCommand);
+
+        //Serial.println(nCommand);
         if (nCommand > 0) {
           switch (nCommand) {
-            case 1:                                               // Increment position value by 1
+            case 1:                                               // Increment position value by 0.1
+              send_values(0.1);
+              break;
+            case 2:                                               // Increment position value by 0.5
+              send_values(0.5);
+              break;
+            case 3:                                               // Increment position value by 1
               send_values(1);
               break;
-            case 2:                                               // Increment position value by 10
-              send_values(10);
+            case 4:                                               // Decrement position value by 0.1
+              send_values(-0.1);
               break;
-            case 3:                                               // Increment position value by 100
-              send_values(100);
+            case 5:                                               // Decrement position value by 0.5
+              send_values(-0.5);
               break;
-            case 4:                                               // Decrement position value by 1
+            case 6:                                               // Decrement position value by 1
               send_values(-1);
-              break;
-            case 5:                                               // Decrement position value by 10
-              send_values(-10);
-              break;
-            case 6:                                               // Decrement position value by 100
-              send_values(-100);
               break;
             case 7:                                               // Set (A) value
               A_position = actualPosition;
@@ -149,24 +170,25 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
             case 12:                                              // (A) switch - see case 50 and 51
               send_values(0);
               break;
-            case 13:                                              // Shots input
-              send_values(0);
+            case 13:                                              // Shots input - not used
               break;
-            case 14:                                              // Interval input
-              Interval = 14;
-              send_values(0);
+            case 14:                                              // Interval input - not used
               break;
             case 20:                                              // (A) jog button mouse down event
               Serial.println("down08");
+              flag08 = true;
               break;
             case 21:                                              // (A) jog button mouse up event
               Serial.println("up08");
+              flag08 = false;
               break;
             case 30:                                              // (B) jog button mouse down event
               Serial.println("down11");
+              flag11 = true;
               break;
             case 31:                                              // (B) jog button mouse up event
               Serial.println("up11");
+              flag11 = false;
               break;
             case 40:                                              // (A) switch on
               Serial.println("chk09");
@@ -198,7 +220,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
   }
 }
 
-void send_values(int incdec) {
+void send_values(float incdec) {
   actualPosition = actualPosition + incdec;
   if (actualPosition > maxPosition) {
     actualPosition = maxPosition;
@@ -206,7 +228,23 @@ void send_values(int incdec) {
   if (actualPosition < minPosition) {
     actualPosition = minPosition;
   }
-  String msg = "dati|" + String(A_position) + "|" + String(B_position) + "|" + String(actualPosition) + "|" + String(Achk) + "|" + String(Bchk) + "|" + String(Shots) + "|" + String(Interval) + "|" + String(ShotsMade);
+
+/*  jmsg["header"]          = "dati";
+  jmsg["A_position"]      = String(A_position, 1);
+  jmsg["B_position"]      = String(B_position, 1);
+  jmsg["actualPosition"]  = String(actualPosition, 1);
+  jmsg["Achk"]            = String(Achk);
+  jmsg["Bchk"]            = String(Bchk);
+  jmsg["Shots"]           = String(Shots);
+  jmsg["Interval"]        = String(Interval);
+  jmsg["ShotsMade"]       = String(ShotsMade);
+
+  serializeJson(jmsg, buffer);*/
+
+  //  serializeJsonPretty(jmsg, buffer);
+  //  Serial.println(buffer);
+
+  String msg = "dati|" + String(A_position, 1) + "|" + String(B_position, 1) + "|" + String(actualPosition, 1) + "|" + String(Achk) + "|" + String(Bchk) + "|" + String(Shots) + "|" + String(Interval) + "|" + String(ShotsMade);
   ws.textAll(msg);
 }
 

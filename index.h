@@ -1,4 +1,4 @@
-const char webpage[] = R"=====(
+const char webpage[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -130,13 +130,13 @@ const char webpage[] = R"=====(
             <div class="panel-header" style= "background-color:rgb(182, 248, 250);">Input values</div>
             <div class="panel-1-grid">
                <label for="Cmd13"><b>Shots set </b>[n] =</label>
-               <input type="number" id="Cmd13" name="shots-set" value=%Shots% onchange="sendValue(this)">
+               <input type="number" id="Cmd13" name="shots-set" value=%Shots% onchange="sendValue13()">
                <div class="text"><b>Actual position </b>[mm] =</div>
                <div class="value"> <span id="actualPosition">%actualPosition%</span></div>
             </div>
             <div class="panel-1-grid">
                <label for="Cmd14"><b>Interval </b>[sec] =</label>
-               <input type="number" id="Cmd14" name="interval" value=%Interval% onchange="sendValue(this)">
+               <input type="number" id="Cmd14" name="interval" value=%Interval% onchange="sendValue14()">
                <div class="text"><b>Shots made </b>[n] =</div>
                <div class="value"> <span id="ShotsMade">%ShotsMade%</span></div>
             </div>
@@ -216,10 +216,13 @@ const char webpage[] = R"=====(
                }
           }
 
-          function sendValue(ctrl) {
+          function sendValue13() {
             var shots = document.getElementById("Cmd13");
-            var Interval = document.getElementById("Cmd14");
             websocket.send("V13-"+shots.value);
+          }
+          
+          function sendValue14() {
+            var Interval = document.getElementById("Cmd14");
             websocket.send("V14-"+Interval.value);
           }
 
@@ -247,6 +250,18 @@ const char webpage[] = R"=====(
           function onMessage(event) {
             /*console.log(`Received a notification from ${event.origin}`);
             console.log(event);*/
+
+           /* var obj = JSON.parse(event.data);
+            if (obj.header === "dati") {
+              document.getElementById("A_position").innerHTML = obj.A_position;
+              document.getElementById("B_position").innerHTML = obj.B_position;
+              document.getElementById("actualPosition").innerHTML = obj.actualPosition;
+              document.getElementById("Cmd09").checked = (obj.Achk == "1");
+              document.getElementById("Cmd12").checked = (obj.Bchk == "1");
+              document.getElementById("Cmd13").value = obj.Shots;
+              document.getElementById("Cmd14").value = obj.Interval;
+              document.getElementById("ShotsMade").innerHTML = obj.ShotsMade;*/
+
             var str = event.data.split('|');
             if (str[0]==="dati") {
               document.getElementById("A_position").innerHTML = str[1];
