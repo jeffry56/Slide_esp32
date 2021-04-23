@@ -5,7 +5,7 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
-#include <ArduinoJson.h>
+//#include <ArduinoJson.h>
 #include "index.h"
 #include "credentials.h"
 //#include <Preferences.h>
@@ -55,8 +55,8 @@ WiFiMulti wifiMulti;
 AsyncWebServer server(porta);
 AsyncWebSocket ws("/ws");
 
-StaticJsonDocument<500> jmsg;
-char buffer[500];
+//StaticJsonDocument<500> jmsg;
+//char buffer[500];
 
 void setup() {
   Serial.begin(115200);
